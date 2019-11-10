@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TerminAddComponent } from './termin-add/termin-add.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TerminAddComponent
   ],
   imports: [
+    HttpClientModule,
     NgbModule,
     BrowserModule,
     AppRoutingModule,
