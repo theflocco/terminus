@@ -3,19 +3,22 @@
   </nav>
 
 <div layout="row" class="md-margin">
-    <div flex>
-
-        <form>
+    <div class="container">
+        <form #terminForm="ngForm">
                 <ngb-datepicker #d></ngb-datepicker>
+
                 <div class="form-group">
                   <label for="intputTitle">Titel</label>
-                  <input type="text" class="form-control" id="intputTitle" placeholder="Enter Title">
+                  <input type="text" class="form-control" id="intputTitle" placeholder="Enter Title"
+                  required
+                  [(ngModel)]="titleString" name="title">
                 </div>
                 <div class="form-group">
                   <label for="inputDescription">Description</label>
                   <input type="text" class="form-control" id="inputDescription" placeholder="Description">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" (click)="postData()">Submit</button>
+                
         </form>
     </div>
 
