@@ -17,8 +17,7 @@ export class TerminServiceService {
     return this.http.get(this.HOST + "/all");
   }
 
-  postTermin(terminString: String) {
-    var termin = new Termin(terminString, "", new Date(), new Date());
-    return this.http.post(this.HOST + "/add",termin);
+  postTermin(terminDTO: Termin) {
+    return this.http.post(this.HOST + "/add",terminDTO);
   }
 }
