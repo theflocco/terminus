@@ -8,11 +8,13 @@ import { TerminAddComponent } from './termin-add/termin-add.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { TerminShareViewComponent } from './termin-share-view/termin-share-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TerminAddComponent
+    TerminAddComponent,
+    TerminShareViewComponent
   ],
   imports: [
     HttpClientModule,

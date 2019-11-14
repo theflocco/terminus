@@ -62,22 +62,21 @@ export class TerminAddComponent implements OnInit {
 
 
   private fetchData() {
-    this.terminService.getAllTermine().subscribe((result: any[]) => {
+    this.terminService.getAllTermine().subscribe((result: Array<Termin>) => {
       console.log(result);
       this.data = result;
     });
   }
 
-  postData() {
+  postTermin() {
     let fromDateDTO = new DateDTO(this.fromDate.day, this.fromDate.month, this.fromDate.year);
-
-
     let toDateDTO = new DateDTO(this.toDate.day, this.toDate.month, this.toDate.year);
-
-
     let terminDTO = new Termin(this.titleString, this.descriptionString, fromDateDTO, toDateDTO);
-    this.terminService.postTermin(terminDTO).subscribe((result) => {
-      console.log(result);
+    this.terminService.postTermin(terminDTO).subscribe((result: String) => {
+      console.log("post successful");
+      console.log("id: " + result);
+      // weiterleiten auf /share-termin/{id}
+
     })
   }
 }

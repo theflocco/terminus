@@ -14,10 +14,18 @@ export class TerminServiceService {
   }
   
   getAllTermine() {
-    return this.http.get(this.HOST + "/all");
+    return this.http.get<Array<Termin>>(this.HOST + "/all");
+  }
+
+  getTerminForId(id: String) {
+    return this.http.get<Termin>(this.HOST + "/id/"+id);
   }
 
   postTermin(terminDTO: Termin) {
-    return this.http.post(this.HOST + "/add",terminDTO);
+    return this.http.post<String>(this.HOST + "/add",terminDTO);
+  }
+
+  getIcs(terminId: String) {
+    return this.http.get(this.HOST + "/getIcs/" + terminId);
   }
 }
