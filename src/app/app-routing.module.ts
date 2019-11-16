@@ -11,7 +11,7 @@ const routes: Routes = [
     component: TerminAddComponent
   },
   {
-    path: 'share-termin',
+    path: 'share-termin/:id',
     component: TerminShareViewComponent
   }
 ];

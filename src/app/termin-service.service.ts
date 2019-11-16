@@ -22,7 +22,7 @@ export class TerminServiceService {
   }
 
   postTermin(terminDTO: Termin) {
-    return this.http.post<String>(this.HOST + "/add",terminDTO);
+    return this.http.post<Array<String>>(this.HOST + "/add",terminDTO);
   }
 
   getIcs(terminId: String) {

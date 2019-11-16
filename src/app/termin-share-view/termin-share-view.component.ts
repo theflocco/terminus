@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TerminServiceService } from '../termin-service.service';
 import { Termin } from '../model/termin';
+import { ActivatedRoute } from '@angular/router';
+import { Subscribable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-termin-share-view',
@@ -9,15 +11,23 @@ import { Termin } from '../model/termin';
 })
 export class TerminShareViewComponent implements OnInit {
 
-  constructor(private terminService: TerminServiceService) { }
+  constructor(private terminService: TerminServiceService,
+    private route: ActivatedRoute) { }
 
   private termin: Termin;
+  private routeSub: Subscription;
   private terminId: String;
 
   ngOnInit() {
+
+    this.routeSub = this.route.params.subscribe(params => {
+      console.log(params);
+      this.terminId = params["id"];
+    })
     // inject terminId hier
     this.terminService.getTerminForId(this.terminId).subscribe((result) => {
       this.termin = result;
+      console.log(this.termin);
     })
   }
 

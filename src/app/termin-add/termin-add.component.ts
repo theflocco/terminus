@@ -3,6 +3,7 @@ import { TerminServiceService } from '../termin-service.service';
 import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { Termin } from '../model/termin';
 import { DateDTO } from '../model/dateDTO';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-termin-add',
@@ -23,7 +24,9 @@ export class TerminAddComponent implements OnInit {
 
 
   constructor(calendar: NgbCalendar,
-    private terminService: TerminServiceService) {
+    private terminService: TerminServiceService,
+    private router: Router) {
+
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
@@ -72,11 +75,12 @@ export class TerminAddComponent implements OnInit {
     let fromDateDTO = new DateDTO(this.fromDate.day, this.fromDate.month, this.fromDate.year);
     let toDateDTO = new DateDTO(this.toDate.day, this.toDate.month, this.toDate.year);
     let terminDTO = new Termin(this.titleString, this.descriptionString, fromDateDTO, toDateDTO);
-    this.terminService.postTermin(terminDTO).subscribe((result: String) => {
+    this.terminService.postTermin(terminDTO).subscribe((result: [String]) => {
       console.log("post successful");
       console.log("id: " + result);
       // weiterleiten auf /share-termin/{id}
 
+      this.router.navigate(["/share-termin", result[0]]);
     })
   }
 }
