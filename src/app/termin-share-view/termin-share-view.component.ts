@@ -3,6 +3,7 @@ import { TerminServiceService } from '../termin-service.service';
 import { Termin } from '../model/termin';
 import { ActivatedRoute } from '@angular/router';
 import { Subscribable, Subscription } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-termin-share-view',
@@ -12,14 +13,15 @@ import { Subscribable, Subscription } from 'rxjs';
 export class TerminShareViewComponent implements OnInit {
 
   constructor(private terminService: TerminServiceService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer) { }
 
   private termin: Termin;
   private routeSub: Subscription;
   private terminId: String;
 
-  ngOnInit() {
 
+  ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
       console.log(params);
       this.terminId = params["id"];
@@ -28,7 +30,11 @@ export class TerminShareViewComponent implements OnInit {
     this.terminService.getTerminForId(this.terminId).subscribe((result) => {
       this.termin = result;
       console.log(this.termin);
-    })
+    });
+    this.terminService.getIcs(this.terminId).subscribe((result: any) => {
+      console.log("got result from backend:" + result.body);
+    });
+
   }
 
 
@@ -40,7 +46,21 @@ export class TerminShareViewComponent implements OnInit {
 
 
   downloadIcs() {
-    //TODO: return ics file from backend
+    this.terminService.getIcs(this.terminId).subscribe(result => {
+      const blob = new Blob([result], { type: 'application/octet-stream' });
+      const data = window.URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = data;
+      link.download = "termin.ics";
+      link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+
+      setTimeout(function () {
+        // For Firefox it is necessary to delay revoking the ObjectURL
+        window.URL.revokeObjectURL(data);
+        link.remove();
+    }, 100);
+
+    });
   }
 
 }

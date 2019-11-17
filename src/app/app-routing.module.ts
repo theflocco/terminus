@@ -5,9 +5,8 @@ import { TerminShareViewComponent } from './termin-share-view/termin-share-view.
 
 
 const routes: Routes = [
-
   {
-    path: 'add-termin',
+    path: '',
     component: TerminAddComponent
   },
   {

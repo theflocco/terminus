@@ -26,6 +26,7 @@ export class TerminServiceService {
   }
 
   getIcs(terminId: String) {
-    return this.http.get(this.HOST + "/getIcs/" + terminId);
+    return this.http.get<Blob>(this.HOST + "/getIcs/" + terminId,
+    {responseType: 'blob' as 'json'});
   }
 }
