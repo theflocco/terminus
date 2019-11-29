@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TerminServiceService } from '../termin-service.service';
-import { NgbDate, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbCalendar, NgbTimepicker, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Termin } from '../model/termin';
 import { DateDTO } from '../model/dateDTO';
 import { Router } from '@angular/router';
@@ -15,6 +15,8 @@ export class TerminAddComponent implements OnInit {
   private data = [];
   private titleString: string;
   private descriptionString: string;
+  startTime = {hour: 13, minute: 30, second: 0};
+  endTime={hour: 13, minute: 30, second: 0};
 
   private fromDate: NgbDate
   private toDate: NgbDate
@@ -26,7 +28,7 @@ export class TerminAddComponent implements OnInit {
   constructor(calendar: NgbCalendar,
     private terminService: TerminServiceService,
     private router: Router) {
-
+    
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
@@ -48,6 +50,14 @@ export class TerminAddComponent implements OnInit {
       this.toDate = null;
       this.fromDate = date;
     }
+  }
+
+  onStartTimeSelection(time: NgbTimeStruct) {
+    this.startTime = time;
+  }
+
+  onEndTimeSelection(time: NgbTimeStruct) {
+    this.endTime = time;
   }
 
   isHovered(date: NgbDate) {
@@ -72,8 +82,8 @@ export class TerminAddComponent implements OnInit {
   }
 
   postTermin() {
-    let fromDateDTO = new DateDTO(this.fromDate.day, this.fromDate.month, this.fromDate.year);
-    let toDateDTO = new DateDTO(this.toDate.day, this.toDate.month, this.toDate.year);
+    let fromDateDTO = new DateDTO(this.fromDate.day, this.fromDate.month, this.fromDate.year, this.startTime.hour, this.startTime.minute);
+    let toDateDTO = new DateDTO(this.toDate.day, this.toDate.month, this.toDate.year, this.endTime.hour, this.endTime.minute);
     let terminDTO = new Termin(this.titleString, this.descriptionString, fromDateDTO, toDateDTO);
     this.terminService.postTermin(terminDTO).subscribe((result: [String]) => {
       console.log("post successful");
