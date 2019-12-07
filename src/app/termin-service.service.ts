@@ -7,12 +7,12 @@ import { Termin } from './model/termin';
 })
 export class TerminServiceService {
 
-  private HOST = "http://localhost:8080";
+  private HOST = "http://terminus-backend.herokuapp.com/";
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
 
   }
-  
+
   getAllTermine() {
     return this.http.get<Array<Termin>>(this.HOST + "/all");
   }
