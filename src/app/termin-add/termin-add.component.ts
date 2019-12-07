@@ -13,14 +13,14 @@ import { Router } from '@angular/router';
 export class TerminAddComponent implements OnInit {
 
   private data = [];
-  private titleString: string;
-  private descriptionString: string;
+  titleString: string;
+  descriptionString: string;
   startTime = {hour: 13, minute: 30, second: 0};
   endTime={hour: 13, minute: 30, second: 0};
 
-  private fromDate: NgbDate
-  private toDate: NgbDate
-  private hoveredDate: NgbDate
+  fromDate: NgbDate
+  toDate: NgbDate
+  hoveredDate: NgbDate
 
   private dateModel: NgbDate;
 
@@ -28,7 +28,7 @@ export class TerminAddComponent implements OnInit {
   constructor(calendar: NgbCalendar,
     private terminService: TerminServiceService,
     private router: Router) {
-    
+
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
@@ -74,7 +74,7 @@ export class TerminAddComponent implements OnInit {
 
 
 
-  private fetchData() {
+  fetchData() {
     this.terminService.getAllTermine().subscribe((result: Array<Termin>) => {
       console.log(result);
       this.data = result;
