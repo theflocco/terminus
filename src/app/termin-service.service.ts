@@ -7,7 +7,7 @@ import { Termin } from './model/termin';
 })
 export class TerminServiceService {
 
-  private HOST = "http://terminus-backend.herokuapp.com/";
+  private HOST = "https://terminus-backend.herokuapp.com/";
 
   constructor(private http: HttpClient) {
 
