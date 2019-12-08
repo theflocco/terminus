@@ -47,7 +47,7 @@ export class TerminShareViewComponent implements OnInit {
 
   downloadIcs() {
     this.terminService.getIcs(this.terminId).subscribe(result => {
-      const blob = new Blob([result], { type: 'application/octet-stream' });
+      const blob = new Blob([result], { type: 'text/calendar' });
       const data = window.URL.createObjectURL(blob);
       var link = document.createElement('a');
       link.href = data;
