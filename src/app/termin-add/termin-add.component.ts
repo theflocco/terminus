@@ -38,7 +38,7 @@ export class TerminAddComponent implements OnInit {
 
 
   ngOnInit() {
-    this.fetchData();
+
   }
 
   onDateSelection(date: NgbDate) {
@@ -70,15 +70,6 @@ export class TerminAddComponent implements OnInit {
 
   isRange(date: NgbDate) {
     return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
-  }
-
-
-
-  fetchData() {
-    this.terminService.getAllTermine().subscribe((result: Array<Termin>) => {
-      console.log(result);
-      this.data = result;
-    });
   }
 
   postTermin() {

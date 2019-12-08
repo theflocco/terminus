@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TerminServiceService } from '../termin-service.service';
 import { Termin } from '../model/termin';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscribable, Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -14,6 +14,7 @@ export class TerminShareViewComponent implements OnInit {
 
   constructor(private terminService: TerminServiceService,
     private route: ActivatedRoute,
+    private router: Router,
     private sanitizer: DomSanitizer) { }
 
   private termin: Termin;
@@ -38,10 +39,19 @@ export class TerminShareViewComponent implements OnInit {
   }
 
 
-  getShareUrl() {
-    // return share url from backend in the form
-    // url/share-termin/{id}
-    // am besten url/share-termin/{id} als url für diese page
+  copyMessage(){
+    let val = 'terminus-frontend.herokuapp.com' + this.router.url;
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
 
 
